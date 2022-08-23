@@ -63,8 +63,8 @@ function App () {
                         onClick={(e) => setTodoState((todoState) => {
                           console.log(e.target.innerText)
                           return todoState.map((clickState) => {
-                            if (clickState.state === state) {
-                              nowState.current = state
+                            if (clickState.state === e.target.innerText) {
+                              nowState.current = e.target.innerText
                               return {
                                 state: clickState.state,
                                 active: true
