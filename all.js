@@ -1,4 +1,4 @@
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 
 function App () {
   const [ todoInput, setTodoInput ] = useState("")
@@ -10,7 +10,13 @@ function App () {
     { id: 1660188520936, todo: "約vicky禮拜三泡溫泉", checked: false },
     { id: 1660188520937, todo: "約ada禮拜四吃晚餐", checked: false }
   ])
-  
+  const nowState = useRef('全部')
+  const [ todoState, setTodoState ] = useState([
+    { state: "全部", active: true },
+    { state: "待完成", active: false },
+    { state: "已完成", active: false}
+  ])
+
   return (
     <div id="todoListPage" className="bg-half">
       <nav>
@@ -40,9 +46,45 @@ function App () {
           </div>
           <div className="todoList_list">
             <ul className="todoList_tab">
-              <li><a href="#" className="active">全部</a></li>
+              {/* <li><a href="#" className="active">全部</a></li>
               <li><a href="#">待完成</a></li>
-              <li><a href="#">已完成</a></li>
+              <li><a href="#">已完成</a></li> */}
+              {/* const [ todoState, setTodoState ] = useState([
+                { state: "全部", active: true },
+                { state: "待完成", active: false },
+                { state: "已完成", active: false}
+              ]) */}
+              {
+                todoState.map(({ state, active }) => {
+                  return (
+                    <li key={state}>
+                      <a href="#" 
+                        className={ active ? 'active' : ''}
+                        onClick={(e) => setTodoState((todoState) => {
+                          console.log(e.target.innerText)
+                          return todoState.map((clickState) => {
+                            if (clickState.state === state) {
+                              nowState.current = state
+                              return {
+                                state: clickState.state,
+                                active: true
+                              }
+                            } else {
+                              return {
+                                state: clickState.state,
+                                active: false
+                              }
+                            }
+                          })
+                        })
+                        }
+                      >
+                        { state }
+                      </a>
+                    </li>
+                  )
+                })
+              }
             </ul>
             <div className="todoList_items">
               <ul className="todoList_item">
