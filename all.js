@@ -59,7 +59,7 @@ function App () {
                   return (
                     <li key={state}>
                       <a href="#" 
-                        className={ active ? 'active' : ''}
+                        className={ active ? 'active' : '' }
                         onClick={(e) => setTodoState((todoState) => {
                           console.log(e.target.innerText)
                           return todoState.map((clickState) => {
@@ -89,16 +89,54 @@ function App () {
             <div className="todoList_items">
               <ul className="todoList_item">
                 {
-                  todoList.map(({todo, checked, id}) => {
+                  // todoList.map(({todo, checked, id}) => {
+                  //   return (
+                  //     <li key={id}>
+                  //       <label className="todoList_label">
+                  //         <input className="todoList_input" type="checkbox" value="true" />
+                  //         <span>{ todo }</span>
+                  //       </label>
+                  //       <a href="#">
+                  //         <i className="fa fa-times"></i>
+                  //       </a>
+                  //     </li>
+                  //   )
+                  // })
+                }
+                {
+                  todoList.filter(({ checked }) => {
+                    if (nowState.current === '待完成') {
+                      return checked === false
+                    } else if (nowState.current === '已完成') {
+                      return checked === true
+                    } else {
+                      return true
+                    }
+                  }).map(({ id, todo, checked }) => {
                     return (
                       <li key={id}>
                         <label className="todoList_label">
-                          <input className="todoList_input" type="checkbox" value="true" />
-                          <span>{ todo }</span>
-                        </label>
-                        <a href="#">
-                          <i className="fa fa-times"></i>
-                        </a>
+                          <input 
+                            className="todoList_input"
+                            type="checkbox"
+                            value="true"
+                            checked={checked}
+                            onChange={(e) => {
+                              setTodoList((prevList) => {
+                                const newList = JSON.parse(
+                                  JSON.stringify(prevList)
+                                )
+                                const changeList = newList.filter(
+                                  (todo) => todo.id === id
+                                )[0]
+                                console.log(changeList)
+                                changeList.checked = !changeList.checked
+                                return newList
+                              })
+                            }}
+                            />
+                            <span>{ todo }</span>
+                          </label>
                       </li>
                     )
                   })
