@@ -122,19 +122,16 @@ function App () {
                             value="true"
                             checked={checked}
                             onChange={(e) => {
-                              setTodoList((prevList) => {
-                                // const newList = JSON.parse(
-                                //   JSON.stringify(prevList)
-                                // )
-                                const newList = [...prevList]
-                                const changeList = newList.filter((todo) => {
+                              console.log(id)
+                              setTodoList((todoList) => {
+                                const newList = JSON.parse(JSON.stringify(todoList))
+                                const changeList = newList.find((todo) => {
                                   return todo.id === id
                                 })
-                                console.log(changeList[0])
-                                changeList[0].checked = !changeList[0].checked
+                                changeList.checked = !changeList.checked
                                 return newList
-                              })
-                            }}
+                                })
+                              }}
                             />
                             <span>{ todo }</span>
                           </label>
