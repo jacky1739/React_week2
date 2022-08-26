@@ -89,21 +89,6 @@ function App () {
             <div className="todoList_items">
               <ul className="todoList_item">
                 {
-                  // todoList.map(({todo, checked, id}) => {
-                  //   return (
-                  //     <li key={id}>
-                  //       <label className="todoList_label">
-                  //         <input className="todoList_input" type="checkbox" value="true" />
-                  //         <span>{ todo }</span>
-                  //       </label>
-                  //       <a href="#">
-                  //         <i className="fa fa-times"></i>
-                  //       </a>
-                  //     </li>
-                  //   )
-                  // })
-                }
-                {
                   todoList.filter(({ checked }) => {
                     if (nowState.current === '待完成') {
                       return checked === false
@@ -135,6 +120,18 @@ function App () {
                             />
                             <span>{ todo }</span>
                           </label>
+                          <a 
+                            href="#"
+                            onClick={() => {
+                              setTodoList((setTodo) => {
+                                return setTodo.filter((todo) => {
+                                  return todo.id !== id
+                                })
+                              })
+                            }}
+                            >
+                            <i className="fa fa-times"></i>
+                          </a>
                       </li>
                     )
                   })
