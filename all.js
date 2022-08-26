@@ -139,7 +139,18 @@ function App () {
               </ul>
               <div className="todoList_statistics">
                 <p> 5 個已完成項目</p>
-                <a href="#">清除已完成項目</a>
+                <a 
+                  href="#"
+                  onClick={() => {
+                    setTodoList((setTodo) => {
+                      return setTodo.filter((todo) => {
+                        return todo.checked === false
+                      })
+                    })
+                  }}
+                >
+                  清除已完成項目
+                </a>
               </div>
             </div>
           </div>
